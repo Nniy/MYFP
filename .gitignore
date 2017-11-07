@@ -52,3 +52,4 @@ fabric.properties
 
 .DS_Store
 .idea/
+midi_encoder/__pycache__/
