@@ -6,11 +6,11 @@ import numpy as np
 NUM_KEYS = 88
 
 
-def get_pitch(note):
-    pitch = note.pitch - 21
-    if pitch < 0 or pitch > 87:
-        raise ValueError("pitch is not in piano range.")
-    return pitch
+def get_piano_pitch(midi_pitch):
+    piano_pitch = midi_pitch.pitch - 21
+    if piano_pitch < 0 or piano_pitch > 87:
+        raise ValueError("piano pitch is not in range.")
+    return piano_pitch
 
 
 def get_numerator(time_signature):
@@ -23,7 +23,7 @@ def get_denominator(time_signature):
     return denominator
 
 
-class MidiProcessor(object):
+class MidiEncoder(object):
     def __init__(self, midi_dir):
         self._midi_dir = midi_dir
 
@@ -43,9 +43,10 @@ class MidiProcessor(object):
         end = midi.time_to_tick(note.end) // (midi.resolution // 4)
         for i in range(end - start):
             if i == 0:
-                piano_roll[start][get_pitch(note)][0] = 1
+                piano_roll[start][get_piano_pitch(note)][1] = 1
+                piano_roll[start][get_piano_pitch(note)][0] = 1
             else:
-                piano_roll[start + i][get_pitch(note)][1] = 1
+                piano_roll[start + i][get_piano_pitch(note)][0] = 1
 
     def get_all_piano_roll(self):
         piano_roll_list = []

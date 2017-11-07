@@ -1,16 +1,16 @@
 from midi_encoder import midi_encoder
+from midi_decoder import midi_decoder
 from pretty_midi import PrettyMIDI
 import numpy as np
 np.set_printoptions(threshold=np.inf)
 
-import pretty_midi
+# mid2 = PrettyMIDI("/Users/Zongyu/PycharmProjects/lark/MidiFiles/Sinding/fruehlingsrauschen_format0.mid")
 
-mid2 = pretty_midi.PrettyMIDI("/Users/Zongyu/PycharmProjects/lark/MidiFiles/Sinding/fruehlingsrauschen_format0.mid")
-
-mid1 = midi_encoder.MidiProcessor("/Users/Zongyu/Desktop/MYFP/midi_encoder")
+mid1 = midi_encoder.MidiEncoder("/Users/Zongyu/Desktop/MYFP/midi_encoder")
 # print(mid1.get_midi_file_list())
 a = mid1.get_all_piano_roll()
-print(a[0][1])
+
+midi_decoder.MidiDecoder(a[0]).piano_roll_to_midi()
 # for note in mid2.instruments[0].notes:
 #     print(mid2.time_to_tick(note.start) // (mid2.resolution // 4), mid2.time_to_tick(note.end) // (mid2.resolution // 4))
 

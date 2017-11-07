@@ -53,3 +53,5 @@ fabric.properties
 .DS_Store
 .idea/
 midi_encoder/__pycache__/
+midi_decoder/__pycache__/
+midi_from_decoder.mid
