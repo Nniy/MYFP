@@ -23,6 +23,12 @@ np.set_printoptions(threshold=np.inf)
 # # Write out the MIDI data
 # cello_c_chord.write('cello-C-chord.mid')
 
-mid = pretty_midi.PrettyMIDI("cello-C-chord.mid")
-a = mid.instruments[0].get_piano_roll()
-print(a)
+# mid = pretty_midi.PrettyMIDI("cello-C-chord.mid")
+# a = mid.instruments[0].get_piano_roll()
+# print(a)
+b = np.zeros((100, 30, 88, 2))
+c = np.split(b, [0, 29], axis=1)
+a = np.zeros((12, 2, 3, 5))
+a = np.split(b, 50)
+print(np.array(c[1]))
+
