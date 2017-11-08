@@ -1,6 +1,8 @@
 import pretty_midi
 import numpy as np
 
+TICK_PER_SECOND = 0.15
+
 
 def get_midi_pitch(piano_pitch):
     midi_pitch = piano_pitch + 21
@@ -28,8 +30,8 @@ class MidiDecoder(object):
                         end_time += 1
                     note = pretty_midi.Note(velocity=100,
                                             pitch=get_midi_pitch(key_idx),
-                                            start=midi_output.tick_to_time(start_time)*50,
-                                            end=midi_output.tick_to_time(end_time)*50)
+                                            start=start_time*TICK_PER_SECOND,
+                                            end=end_time*TICK_PER_SECOND)
                     midi_instrument.notes.append(note)
 
         midi_output.instruments.append(midi_instrument)
