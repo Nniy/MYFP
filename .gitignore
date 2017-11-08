@@ -57,3 +57,4 @@ midi_decoder/__pycache__/
 midi_from_decoder.mid
 data_generator/train_data.h5
 MidiFiles/
+midi_encoder/chp_op18.mid
