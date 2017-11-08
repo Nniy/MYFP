@@ -1,6 +1,6 @@
 import pretty_midi
 import numpy as np
-# np.set_printoptions(threshold=np.inf)
+np.set_printoptions(threshold=np.inf)
 
 # # Create a PrettyMIDI object
 # cello_c_chord = pretty_midi.PrettyMIDI()
@@ -26,9 +26,9 @@ import numpy as np
 # mid = pretty_midi.PrettyMIDI("cello-C-chord.mid")
 # a = mid.instruments[0].get_piano_roll()
 # print(a)
-b = np.zeros((4000, 88, 2))
-
+b = np.zeros((100, 30, 88, 2))
+c = np.split(b, [0, 29], axis=1)
 a = np.zeros((12, 2, 3, 5))
 a = np.split(b, 50)
-print(np.array(a).shape)
+print(np.array(c[1]))
 

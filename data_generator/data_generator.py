@@ -16,10 +16,20 @@ def split_piano_roll(roll_list, split_length):
             roll = roll[:-(len(roll) % split_length)]
         roll = np.split(roll, divided_num)
         roll = np.array(roll, dtype=np.int8)
-        print(roll.shape)
         result = np.append(result, roll, axis=0)
-    return result
+        print(result.shape)
+    print("Splitting...")
+    split = np.split(result, [0, split_length-1], axis=1)
+    print("Splitting done")
+    inputs = split[1]
+    labels = split[2]
+    return inputs, labels
 
 
-output = split_piano_roll(piano_roll_list, 65)
-print(output.shape)
+x, y = split_piano_roll(piano_roll_list, 30)
+
+hf = h5py.File("train_data.h5", "w")
+hf.create_dataset("inputs", data=x)
+hf.create_dataset("labels", data=y)
+hf.close()
+print(x.shape, y.shape)
