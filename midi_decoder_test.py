@@ -22,23 +22,29 @@ np.set_printoptions(threshold=np.inf)
 # cello_c_chord.instruments.append(cello)
 # # Write out the MIDI data
 # cello_c_chord.write('cello-C-chord.mid')
+#
+# mid = pretty_midi.PrettyMIDI("/Users/Zongyu/Desktop/MYFP/MidiFiles/beeth/beethoven_opus10_1.mid")
+# print(mid.instruments)
+# # a = mid.instruments[0].get_piano_roll()
+# # print(a)
+# # b = np.zeros((100, 30, 88, 2))
+# # c = np.split(b, [0, 29], axis=1)
+# # a = np.zeros((12, 2, 3, 5))
+# # a = np.split(b, 50)
+# # d = [1, 2, 0]
+# # d = np.array(d, dtype=np.bool)
+# # d[0] = d[0] + 2
+# # print(d)
+# a = np.zeros((10, 2))
+# b = np.array([[1,2,3,4], [4,5,6,7]])
+# print(b[1][:-1])
+# print(2 in range(3))
 
-mid = pretty_midi.PrettyMIDI("/Users/Zongyu/Desktop/MYFP/MidiFiles/beeth/beethoven_opus10_1.mid")
-print(mid.instruments)
-# a = mid.instruments[0].get_piano_roll()
-# print(a)
-# b = np.zeros((100, 30, 88, 2))
-# c = np.split(b, [0, 29], axis=1)
-# a = np.zeros((12, 2, 3, 5))
-# a = np.split(b, 50)
-# d = [1, 2, 0]
-# d = np.array(d, dtype=np.bool)
-# d[0] = d[0] + 2
-# print(d)
-a = np.zeros((10, 2))
-b = np.array([[1,2,3,4], [4,5,6,7]])
-print(b[1][:-1])
-print(2 in range(3))
+a = np.zeros((1, 1, 5))
+b = np.ones((1, 3, 5))
+
+b = np.append(b, a, axis=1)
+print(b[1][3][4])
 
 
 

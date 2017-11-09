@@ -1,10 +1,10 @@
-from midi_encoder import mono_encoder
+from midi_encoder import mono_speedy_encoder
 import numpy as np
 import h5py
 
 MIDI_DIR = "../MidiFiles"
 
-data = mono_encoder.MonoEncoder(MIDI_DIR)
+data = mono_speedy_encoder.MonoSpeedyEncoder(MIDI_DIR)
 piano_roll_list = data.get_all_piano_roll()
 
 
@@ -27,7 +27,7 @@ def split_piano_roll(roll_list, split_length):
 
 
 def produce_data(roll_list, split_length):
-    result = np.zeros((0, split_length, 89), dtype=np.int8)
+    result = np.zeros((0, split_length, 88), dtype=np.int8)
     for roll in roll_list:
         divided_num = len(roll) // split_length
         if len(roll) % split_length != 0:
@@ -46,7 +46,7 @@ def produce_data(roll_list, split_length):
 
 x, y = produce_data(piano_roll_list, 36)
 
-hf = h5py.File("mono_data.h5", "w")
+hf = h5py.File("mono_speedy_data.h5", "w")
 hf.create_dataset("inputs", data=x)
 hf.create_dataset("labels", data=y)
 hf.close()

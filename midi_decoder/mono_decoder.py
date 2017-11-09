@@ -16,7 +16,7 @@ class MonoDecoder(object):
     def __init__(self, piano_roll):
         self._piano_roll = piano_roll
 
-    def piano_roll_to_midi(self):
+    def piano_roll_to_midi(self, filename):
         midi_output = pretty_midi.PrettyMIDI()
         midi_instrument = pretty_midi.Instrument(program=0)
 
@@ -39,4 +39,4 @@ class MonoDecoder(object):
                     midi_instrument.notes.append(note)
 
         midi_output.instruments.append(midi_instrument)
-        midi_output.write("../midi_from_decoder.mid")
+        midi_output.write(filename)
