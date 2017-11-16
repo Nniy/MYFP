@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package lark;
+
+message PianoRoll {
+    int32 resolution = 1;
+    int64 total_tick = 2;
+    repeated Track tracks = 3;
+
+    message Track {
+        string name = 1;
+        repeated Note notes = 2;
+
+        message Note {
+            int32 velocity = 1;
+            int32 pitch = 2;
+            int64 start_tick = 3;
+            int64 end_tick = 4;
+        }
+    }
+}
