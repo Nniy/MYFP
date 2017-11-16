@@ -67,3 +67,4 @@ rnn/rnn.h5
 data_generator/mono_speedy_data.h5
 rnn/predict.mid
 rnn/primer.mid
+midi_data/midi_data.tfrecord

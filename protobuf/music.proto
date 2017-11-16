@@ -3,9 +3,12 @@ syntax = "proto3";
 package lark;
 
 message PianoRoll {
-    int32 resolution = 1;
-    int64 total_tick = 2;
-    repeated Track tracks = 3;
+    string id = 1;
+    string collection_name = 2;
+    string filename = 3;
+    int32 resolution = 4;
+    int64 total_tick = 5;
+    repeated Track tracks = 6;
 
     message Track {
         string name = 1;
@@ -19,3 +22,5 @@ message PianoRoll {
         }
     }
 }
+
+//protoc -I=/Users/Zongyu/Desktop/MYFP/protobuf --python_out=/Users/Zongyu/Desktop/MYFP/protobuf /Users/Zongyu/Desktop/MYFP/protobuf/music.proto
