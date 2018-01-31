@@ -68,3 +68,14 @@ data_generator/mono_speedy_data.h5
 rnn/predict.mid
 rnn/primer.mid
 midi_data/midi_data.tfrecord
+midi_encoder/piano_roll.h5
+midi_encoder/train.h5
+rnn/__pycache__/
+rnn/generated.mid
+rnn/lstm_text_generation.py
+rnn/melodies.h5
+rnn/model.h5
+rnn/random_data.py
+rnn/random_generated.mid
+test.mid
+test.py

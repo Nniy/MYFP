@@ -4,21 +4,6 @@ import tensorflow as tf
 from music import midi_io
 from music import note_sequence_io
 
-# FLAGS = tf.app.flags.FLAGS
-#
-# tf.app.flags.DEFINE_string('input_dir', None,
-#                            'Directory containing files to convert.')
-# tf.app.flags.DEFINE_string('output_file', None,
-#                            'Path to output TFRecord file. Will be overwritten '
-#                            'if it already exists.')
-# tf.app.flags.DEFINE_bool('recursive', False,
-#                          'Whether or not to recurse into subdirectories.')
-# tf.app.flags.DEFINE_integer('num_threads', 1,
-#                             'Number of worker threads to run in parallel.')
-# tf.app.flags.DEFINE_string('log', 'INFO',
-#                            'The threshold for what messages will be logged '
-#                            'DEBUG, INFO, WARN, ERROR, or FATAL.')
-
 
 def convert_files(root_dir, sub_dir, writer, recursive=False):
     dir_to_convert = os.path.join(root_dir, sub_dir)
@@ -76,30 +61,3 @@ def convert_directory(root_dir, output_file, recursive=False):
 convert_directory("/Users/Zongyu/Desktop/MYFP/MidiFiles/",
                   "/Users/Zongyu/Desktop/MYFP/midi_data/midi_data.tfrecord",
                   recursive=True)
-
-# def main(_):
-#     tf.logging.set_verbosity(FLAGS.log)
-#
-#     if not FLAGS.input_dir:
-#         tf.logging.fatal('--input_dir required')
-#         return
-#     if not FLAGS.output_file:
-#         tf.logging.fatal('--output_file required')
-#         return
-#
-#     input_dir = os.path.expanduser(FLAGS.input_dir)
-#     output_file = os.path.expanduser(FLAGS.output_file)
-#     output_dir = os.path.dirname(output_file)
-#
-#     if output_dir:
-#         tf.gfile.MakeDirs(output_dir)
-#
-#     convert_directory(input_dir, output_file, FLAGS.recursive)
-#
-#
-# def console_entry_point():
-#     tf.app.run(main)
-#
-#
-# if __name__ == '__main__':
-#     console_entry_point()

@@ -1,28 +1,47 @@
 from keras.models import load_model
-import h5py
 import numpy as np
+import h5py
 
 from midi_decoder import mono_decoder
 
 
 np.set_printoptions(threshold=np.inf)
-model = load_model("rnn.h5")
+model = load_model("model.h5")
 model.load_weights("model_weights.h5")
-hf = h5py.File("../data_generator/mono_speedy_data.h5", "r")
-primer = hf.get("inputs")
-primer = np.array(primer, dtype=np.int8)
-preds = primer[0].reshape((1, 35, 88))
-piano_roll = primer[0]
 
-for i in range(100):
-    empty = np.zeros((1, 1, 88))
-    predictions = model.predict(preds)[0]
-    key_idx = np.argmax(predictions)
-    empty[0][0][key_idx] = 1
-    piano_roll = np.append(piano_roll, empty[0], axis=0)
-    preds = np.append(preds, empty, axis=1)
-    preds = preds[0][1:][:]
-    preds = np.reshape(preds, (1, 35, 88))
 
-mono_decoder.MonoDecoder(primer[0]).piano_roll_to_midi("primer.mid")
-mono_decoder.MonoDecoder(piano_roll).piano_roll_to_midi("predict.mid")
+hf = h5py.File('/Users/Zongyu/Desktop/MYFP/midi_encoder/train.h5', "r")
+x = np.array(hf.get("x"))[0]
+sequence = []
+for i in x:
+    sequence.append(np.argmax(i))
+generated = sequence
+
+
+def sample(preds, temperature=1.0):
+    # helper function to sample an index from a probability array
+    preds = np.asarray(preds).astype('float64')
+    preds = np.log(preds) / temperature
+    exp_preds = np.exp(preds)
+    preds = exp_preds / np.sum(exp_preds)
+    probability = np.random.multinomial(1, preds, 1)
+    return np.argmax(probability)
+
+
+for _ in range(500):
+    piano_roll = np.zeros((1, 50, 90))
+    for t, note in enumerate(generated):
+        piano_roll[0, t, note] = 1
+
+    predictions = model.predict(piano_roll, verbose=0)[0]
+    next_index = sample(predictions)
+
+    sequence.append(next_index)
+    generated = sequence[-50:]
+
+result = np.zeros((550, 90))
+for t, note in enumerate(sequence):
+    result[t, note] = 1
+
+
+mono_decoder.piano_roll_to_midi(result, 'generated.mid')
