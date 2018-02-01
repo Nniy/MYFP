@@ -7,7 +7,7 @@ from keras.optimizers import RMSprop
 import h5py
 import numpy as np
 
-from rnn import constants
+import constants
 
 
 def read_from_file(filename):
