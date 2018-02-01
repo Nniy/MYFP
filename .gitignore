@@ -65,3 +65,8 @@ rnn/generated.mid
 rnn/model.h5
 rnn/random_data.py
 test.py
+__pycache__/
+midi_encoder/train_cnn.h5
+cnn/generated.mid
+cnn/model.h5
+cnn/model_weights.h5

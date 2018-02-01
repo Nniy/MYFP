@@ -1,7 +1,7 @@
 """
 rnn_keras
 """
-STEPS = 50
+STEPS = 90
 BATCH_SIZE = 128
 EVENTS = 90
 NOTE_OFF = -1

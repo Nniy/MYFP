@@ -4,7 +4,7 @@ import os
 import numpy as np
 import h5py
 
-from rnn import constants
+import constants
 
 NUM_KEYS = constants.EVENTS
 maxlen = constants.STEPS
@@ -81,7 +81,7 @@ def get_all_piano_roll(midi_dir):
 
 x, y = get_all_piano_roll('/Users/Zongyu/Desktop/MYFP/MidiFiles')
 
-hf = h5py.File('train.h5', 'w')
+hf = h5py.File('train_cnn.h5', 'w')
 hf.create_dataset('x', data=x)
 hf.create_dataset('y', data=y)
 hf.close()
