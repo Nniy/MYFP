@@ -1,15 +1,14 @@
 from __future__ import print_function
 from keras.models import Sequential
 from keras.layers import Dense, Activation
-from keras.layers import SimpleRNN
+from keras.layers import LSTM, Dropout
 from keras.callbacks import TensorBoard
-import matplotlib.pyplot as plt
 
 import h5py
 import numpy as np
-import keras
 
 import constants
+import keras
 
 
 def read_from_file(filename):
@@ -25,29 +24,18 @@ maxlen = constants.STEPS
 
 print('Build model...')
 model = Sequential()
-model.add(SimpleRNN(128, input_shape=(maxlen, KEYS)))
-model.add(Dense(KEYS))
-model.add(Activation('softmax'))
+model.add(LSTM(128, return_sequences=True, input_shape=(maxlen, KEYS)))
+model.add(LSTM(64))
+model.add(Dropout(0.2))
+model.add(Dense(KEYS, activation='softmax'))
 
-TB = TensorBoard(log_dir='../cnn/logs/rnn')
-
-op = keras.optimizers.Adam(lr=0.01, beta_1=0.9, beta_2=0.999, epsilon=0.001, decay=0.95)
+TB = TensorBoard(log_dir='../cnn/logs/lstm_drop_best_2_layers')
 
 
+op = keras.optimizers.Adam(lr=0.5, beta_1=0.9, beta_2=0.999, epsilon=0.001, decay=0.85)
 model.compile(loss='categorical_crossentropy', optimizer=op, metrics=['accuracy'])
 
 fit = model.fit(x_train, y_train, batch_size=128, epochs=50, callbacks=[TB], validation_split=0.2)
 
-print(fit.history.keys())
-plt.plot(fit.history['loss'])
-plt.plot(fit.history['val_loss'])
-plt.title('model loss')
-plt.ylabel('loss')
-plt.xlabel('epoch')
-plt.legend(['train', 'validation'], loc='upper left')
-plt.show()
-
-model.save("model_rnn.h5")
-model.save_weights("model_weights_rnn.h5")
-
-
+model.save("model.h5")
+model.save_weights("model_weights.h5")

@@ -70,3 +70,6 @@ midi_encoder/train_cnn.h5
 cnn/generated.mid
 cnn/model.h5
 cnn/model_weights.h5
+rnn/generated1.mid
+rnn/generated2.mid
+rnn/generated3.mid

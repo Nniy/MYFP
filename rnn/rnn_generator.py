@@ -3,6 +3,9 @@ import numpy as np
 import h5py
 
 from midi_decoder import mono_decoder
+import constants
+
+roll_length = constants.ROLL_LENGTH
 
 
 np.set_printoptions(threshold=np.inf)
@@ -28,7 +31,7 @@ def sample(preds, temperature=1.0):
     return np.argmax(probability)
 
 
-for _ in range(500):
+for _ in range(roll_length):
     piano_roll = np.zeros((1, 50, 90))
     for t, note in enumerate(generated):
         piano_roll[0, t, note] = 1
@@ -39,9 +42,12 @@ for _ in range(500):
     sequence.append(next_index)
     generated = sequence[-50:]
 
-result = np.zeros((550, 90))
+result = np.zeros((roll_length + 50, 90))
 for t, note in enumerate(sequence):
     result[t, note] = 1
 
 
-mono_decoder.piano_roll_to_midi(result, 'generated.mid')
+mono_decoder.piano_roll_to_midi(result, 'generated_best_01.mid')
+print(sequence)
+# hf = h5py.File('piano_roll.h5', 'w')
+# hf.create_dataset('piano_roll', data=sequence)
